@@ -5,13 +5,13 @@
 
 using namespace std;
 int main(){
-  srand(time(0));
+  srand(time(NULL));
   string cards[13] = {"Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"};
   string suites[4] = {"Spades", "Hearts", "Diamonds", "Clubs"};
   string pn[2] = {"one", "two"};
   string resp;
   int players[2][2];
-  while (1 == 1){
+  do {
     for (int i = 0; i < 2; i++){
       players[i][0] = rand() % 13;
       players[i][1] = rand() % 4;
@@ -51,7 +51,8 @@ int main(){
     else{
       cout << c1;
     }
-    cout << '\n' << "Press any key to continue...";
-    resp = cin.get();
-  }
+    cout << '\n' << "Press any key to continue... ";
+    cin.get();
+  } while (cin.get() != '\n');
+  return 0;
 }
