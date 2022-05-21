@@ -9,7 +9,6 @@ int main(){
   string cards[13] = {"Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"};
   string suites[4] = {"Spades", "Hearts", "Diamonds", "Clubs"};
   string pn[2] = {"one", "two"};
-  string resp;
   int players[2][2];
   do {
     for (int i = 0; i < 2; i++){
