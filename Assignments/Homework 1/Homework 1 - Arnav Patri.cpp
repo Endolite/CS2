@@ -1,12 +1,14 @@
-// Arnav Patri
+/* Arnav Patri
+I give consent (?)
+I'm not sure what I need for the consent statement, and it's already Sunday, so I can't find out before turning this in */
 #include <iostream>
 
 using namespace std;
 
 int main(){
   int n;
-  cout << "Enter a number between -5 and 5 excluding -1, 0, and 1" << endl;
-    cin >> n;
+  cout << "Enter a number between -5 and 5 excluding -1, 0, and 1:" << endl;
+  cin >> n;
   while ((n >= -1 && n <= 1) || (n < -5) || (n > 5)){
       cout << "Invalid number. Enter again:" << endl;
       cin >> n;

@@ -1,0 +1,12 @@
+Name			Exam1		Exam2		Final
+-------------------------------------------------------------
+Ibrahim Alhayd          54              100             ?
+Adrian Brooks           72              83              ?
+Isaac Craig             76              75              ?
+Austin Dikhow           100             57              ?
+Emmanuel Ifeosam        69              93              ?
+Brandon Mackey          0               0               ?
+Daniel Piotrowski       82              71              ?
+Hunter Vallad           91              62              ?
+-------------------------------------------------------------
+Average                 ?               ?               ?
