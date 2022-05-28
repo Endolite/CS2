@@ -50,7 +50,7 @@ int main(){
     else{
       cout << c1;
     }
-    cout << '\n' << "Press any key to continue... ";
+    cout << endl << "Press any key to continue... ";
     cin.get();
   } while (cin.get() != '\n');
   return 0;

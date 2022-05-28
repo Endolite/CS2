@@ -1,3 +1,4 @@
+// Arnav Patri
 #include <iostream>
 #include <iomanip>
 #include <fstream>
@@ -9,18 +10,12 @@ int main(){
   string str;
   string str1;
   int count = 0;
-  //int n;
   vector<string> data;
   float scores[9][3];
   while (inputFile >> str){
     data.push_back(str);
   }
   inputFile.close();
-  /*
-  for (int i = 0; i < data.size(); i++){
-    cout << i << data[i] << " ";
-  }
-  */
   for (int i = 0; (i < data.size()) && (count < 8); i++){
     if (i > 5){
       if (i % 5 == 2){
@@ -33,9 +28,6 @@ int main(){
       }
     }
   }
-  for (int i = 0; i < 9; i++){
-    cout << scores[i][0] << endl;
-  }
   float sum[3] = {0, 0, 0};
   for (int i = 0; i < 3; i++){
     for (int j = 0; j < 8; j++){
@@ -46,13 +38,6 @@ int main(){
   for (int i = 0; i < 3; i++){
     scores[8][i] = sum[i] / 8;
   }
-  /*
-  for (auto &i : scores){
-    for (auto &j : i){
-      cout << j << " ";
-    }
-  }
-  */
   count = 0;
   for (int i = 0; (i < data.size()) && (count < 8); i++){
     if (data[i] == "?"){
@@ -101,74 +86,16 @@ int main(){
       }
     }
   }
-  /*for (int i = 0; i < data.size(); i++){
-    string s = data[i];
-    if (s[0] == '-'){
-      cout << s << endl;
-    }
-    else{
-      if ((i % 5 == 0) || (i == data.size() - 4)){
-        n = 20;
-      }
-      else{
-        n = 14;
-      }
-      if ((i % 5 == 4) || (i == 3)){
-        cout << setw(n) << left << s << endl;
-      }
-      else if ((i % 5 == 0) && (i > 0) && (i < data.size() - 5)){
-        i++;
-        cout << setw(n) << left << s + " " + data[i];
-      }
-      else{
-        cout << setw(n) << left << s;
-      }
-    }
-  }
-  */
-  /*
-  while (inputFile >> str){
-    if (str[0] == '-'){
-      cout << str << endl;
-    }
-    else{
-      count++;
-      if ((count % 5 == 0) || (count == 1)){
-        n = 20;
-      }
-      else{
-        n = 13;
-      }
-      if ((count % 5 == 4) || (count == 4)){
-      cout << setw(n) << left << str << endl;
-      }
-      else if ((count % 5) == 0 && (str != "Average")){
-        count++;
-        inputFile >> str1;
-        cout << setw(n) << left << str + " " + str1;
-      }
-      else{
-        cout << setw(n) << left << str;
-      }
-    }
-  }
-  */
   string names[8];
   count = 0;
   for (int i = 5; i < data.size() - 5; i += 5){
     names[(i / 5) - 1] = data[i] + " " + data[i + 1];
-  }
-  for (int i = 0; i < 8; i++){
-    cout << i;
-    cout << i << " " << names[i] << endl;
   }
   int max1 = 0;
   int max2 = 0;
   float avg = scores[8][2];
   int cavg = 0;
   for (int i = 0; i < 8; i++){
-    cout << i << " " << abs(avg - scores[i][2]) << " "  << abs(avg - scores[cavg][2]) << " " << names[cavg] << endl;
-    cout << i << " " << scores[i][0] << " " << scores[max1][0] << " " << names[max1] << endl;
     if (abs(avg - scores[i][2]) < abs(avg - scores[cavg][2])){
       cavg = i;
     }
@@ -179,9 +106,55 @@ int main(){
       max2 = i;
     }
   }
-  //cout << max << " " << min << " " << cavg;
   cout << endl << endl << names[max1] << " scored the maximum grade in Exam1." << endl;
   cout << names[max2] << " scored the maximum grade in Exam2." << endl;
   cout << names[cavg] << " was the nearest to the average." << endl;
+  string resp;
+  cout << endl << "Would you like to save the results back to the file? (Y/N)" << endl;
+  cin >> resp;
+  if (resp == "Y"){
+    ofstream fout("students.txt");
+    for (int i = 0; i < data.size(); i++){
+      string s = data[i];
+      if (s[0] == '-'){
+        fout << s << endl;
+      }
+      else{
+        if ((i % 5 == 0) || (i == data.size() - 4)){
+          n = 24;
+        }
+        else{
+          n = 16;
+        }
+        if (i == 3){
+          fout << setw(n) << left << s << endl;
+        }
+        else if ((i % 5 == 0) && (i > 0) && (i < data.size() - 5)){
+          i++;
+          fout << setw(n) << left << s + " " + data[i];
+        }
+        else if ((i > data.size() - 4) && (i < data.size())){
+          fout << setw(n) << left << scores[8][stoi(data[i])];
+        }
+        else if (i % 5 == 4){
+          fout << setw(n) << left << scores[stoi(data[i])][2];
+          if (i % 5 == 4){
+            fout << endl;
+          }
+        }
+        else{
+          fout << setw(n) << left << s;
+        }
+      }
+    }
+    fout << endl << endl << names[max1] << " scored the maximum grade in Exam1." << endl;
+    fout << names[max2] << " scored the maximum grade in Exam2." << endl;
+    fout << names[cavg] << " was the nearest to the average." << endl;
+    fout.close();
+    cout << "Saved successfully. Good bye!";
+  }
+  else{
+    cout << "Ok. Good bye!";
+  }
   return 0;
 }
