@@ -4,7 +4,6 @@ AID IN COMPLETING THIS WORK, NOR HAVE I PRESENTED
 SOMEONE ELSE’S WORK AS MY OWN.*/
 #include <iostream>
 #include <stdlib.h>
-#include <string>
 
 using namespace std;
 int main(){
@@ -53,7 +52,7 @@ int main(){
     else{
       cout << c1;
     }
-    cout << endl << "Press any key to continue... ";
+    cout << endl << "Press any key to continue... " << endl;
     cin.get();
   } while (cin.get() != '\n');
   return 0;
