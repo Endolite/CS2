@@ -1,4 +1,5 @@
 #include <fstream>
+#include <iomanip>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -12,25 +13,25 @@ class PersonData{
     string address;
     string city;
     string state;
-    unsigned int zip;
+    string zip;
     string phone;
-    unsigned int customerNumber = CURR;
+    unsigned int customerNumber;
     bool mailingList;
   public:
     static unsigned int CURR;
-    // Constructor
+    // Constructors
     PersonData(){
       lastName = "";
       firstName = "";
       address = "";
       city = "";
       state = "";
-      zip = 0;
+      zip = "";
       phone = "";
       customerNumber = 0;
       mailingList = false;
     }
-    PersonData(string lN, string fN, string a, string c, string s, unsigned int z, string ph, bool ml){
+    PersonData(string lN, string fN, string a, string c, string s, string z, string ph, bool mL){
       lastName = lN;
       firstName = fN;
       address = a;
@@ -40,7 +41,7 @@ class PersonData{
       phone = ph;
       customerNumber = CURR;
       CURR++;
-      mailingList = ml;
+      mailingList = mL;
     }
     // Getters
     string getLastName() const{
@@ -58,7 +59,7 @@ class PersonData{
     string getState() const{
       return state;
     }
-    unsigned int getZip() const{
+    string getZip() const{
       return zip;
     }
     string getPhone() const{
@@ -86,7 +87,7 @@ class PersonData{
     void setState(string str){
       state = str;
     }
-    void setZip(unsigned int z){
+    void setZip(string z){
       zip = z;
     }
     void setPhone(string str){
@@ -103,36 +104,60 @@ class PersonData{
 unsigned int PersonData::CURR = 1;
 
 int main(){
-  ifstream inputFile("CustomerInfo.txt");
+  ifstream inputFile("CutomerInfo.txt");
   string str;
+  //cout << (inputFile >> str);
   vector<string> data;
   while (inputFile >> str){
       data.push_back(str);
   }
-  string form[data.size()][8];
+  string form[5][8];
   int row = 0;
+  int j;
   for (int i = 0; i < data.size(); i++){
-    form[row][i % 8] = data[i];
-    if (i + 1 % 8 == 0){
-      row++;
+    if (j == 3){
+      while ((data[i] != "Rd") && (data[i] != "Hwy")){
+        form[row][j] += data[i];
+        i++;
+      }
     }
+    else if (j == 7){
+      form[row][j] = data[i] + data[i + 1];
+      i++;
+    }
+    else{
+      form[row][j] = data[i];
+      if (j == 8){
+        j = -1;
+        row++;
+      }
+    }
+    j++;
   }
-  bool mL[sizeof(form)];
-  for (int i = 0; i < sizeof(form); i++){
-    if (form[i][7][1] == 't'){
+  for (int i = 0; i < 5; i++){
+    for (int j = 0; j < 9; j++){
+      cout << setw(20) << left << form[i][j];
+    }
+    cout << endl;
+  }
+  bool mL[5];
+  for (int i = 0; i < 5; i++){
+    if (form[i][7] == "true"){
       mL[i] = true;
     }
     else{
       mL[i] = false;
     }
   }
-  PersonData ppl[sizeof(form)];
-  int n;
-  for (int i = 0; i < sizeof(ppl); i++){
-    ppl[i] = PersonData(form[i][0], form[i][1], form[i][2], form[i][3], form[i][4], (unsigned int) stoi(form[i][5]), form[i][6], mL[i]);
+  PersonData* people[5];
+  /*
+  for (int i = 0; i < 5; i++){
+    people[i] = new PersonData(form[i][0], form[i][1], form[i][2], form[i][3], form[i][4], form[i][5], form[i][6], mL[i]);
+    //cout << form[i][0] << form[i][2] << form[i][3] << form[i][4] << form[i][5] << form[i][6] << form[i][7];
   }
-  for (PersonData p : ppl){
-    cout << p.to_string();
+  for (PersonData* p : people){
+    cout << p -> to_string();
   }
+  */
   return 0;
 }
