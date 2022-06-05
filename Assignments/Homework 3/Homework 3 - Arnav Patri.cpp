@@ -1,3 +1,7 @@
+// Arnav Patri
+/*I HAVE NEITHER GIVEN NOR RECEIVED UNAUTHORIZED
+AID IN COMPLETING THIS WORK, NOR HAVE I PRESENTED
+SOMEONE ELSE’S WORK AS MY OWN.*/
 #include <iostream>
 #include <cstring>
 
@@ -31,10 +35,5 @@ unsigned int GetSize(char cstr[]){
 }
 
 int main(){
-  // ShiftByOne
-  int n = 3;
-  int arr[3] = {1, 2, 3};
-  cout << ShiftByOne(arr, n) << endl;
-  cout << GetMax(arr, n);
   return 0;
 }
