@@ -1,3 +1,7 @@
+// Arnav Patri
+/*I HAVE NEITHER GIVEN NOR RECEIVED UNAUTHORIZED
+AID IN COMPLETING THIS WORK, NOR HAVE I PRESENTED
+SOMEONE ELSE’S WORK AS MY OWN.*/
 #include <fstream>
 #include <iomanip>
 #include <iostream>
@@ -19,18 +23,7 @@ class PersonData{
     bool mailingList;
   public:
     static unsigned int CURR;
-    // Constructors
-    PersonData(){
-      lastName = "";
-      firstName = "";
-      address = "";
-      city = "";
-      state = "";
-      zip = "";
-      phone = "";
-      customerNumber = 0;
-      mailingList = false;
-    }
+    // Constructor
     PersonData(string lN, string fN, string a, string c, string s, string z, string ph, bool mL){
       lastName = lN;
       firstName = fN;
@@ -97,9 +90,6 @@ class PersonData{
       mailingList = b;
     }
     // to_string
-    string to_string(){
-      return "a";
-    }
 };
 unsigned int PersonData::CURR = 1;
 
@@ -134,12 +124,6 @@ int main(){
     }
     j++;
   }
-  for (int i = 0; i < 5; i++){
-    for (int j = 0; j < 9; j++){
-      cout << setw(20) << left << form[i][j];
-    }
-    cout << endl;
-  }
   bool mL[5];
   for (int i = 0; i < 5; i++){
     if (form[i][7] == "true"){
@@ -149,15 +133,12 @@ int main(){
       mL[i] = false;
     }
   }
-  PersonData* people[5];
-  /*
+  vector<PersonData> people;
   for (int i = 0; i < 5; i++){
-    people[i] = new PersonData(form[i][0], form[i][1], form[i][2], form[i][3], form[i][4], form[i][5], form[i][6], mL[i]);
-    //cout << form[i][0] << form[i][2] << form[i][3] << form[i][4] << form[i][5] << form[i][6] << form[i][7];
+    people.push_back(PersonData(form[i][0], form[i][1], form[i][2], form[i][3], form[i][4], form[i][5], form[i][6], mL[i]));
   }
-  for (PersonData* p : people){
-    cout << p -> to_string();
+  for (PersonData p : people){
+    cout << p.getFirstName() << " " << p.getLastName() << "; " << p.getAddress() << " " << p.getCity() << " " << p.getState() << " " << p.getZip() << "; " << p.getPhone() << "; " << p.getMailingList() << endl;
   }
-  */
   return 0;
 }
