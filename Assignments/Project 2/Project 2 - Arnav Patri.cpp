@@ -133,6 +133,7 @@ int main(){
       mL[i] = false;
     }
   }
+  //TODO initialize null array and use setters for each element
   vector<PersonData> people;
   for (int i = 0; i < 5; i++){
     people.push_back(PersonData(form[i][0], form[i][1], form[i][2], form[i][3], form[i][4], form[i][5], form[i][6], mL[i]));
