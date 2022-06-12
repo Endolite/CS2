@@ -25,6 +25,12 @@ void sort(int arr[], int size){
   }
 };
 
+void printArr(int arr[], int size){
+  for (int i = 0; i < size; i++){
+    cout << *(arr + i) << " ";
+  }
+};
+
 int main(){
   string str;
   cout << "Enter the size of your list: ";
@@ -41,8 +47,6 @@ int main(){
   }
   sort(scores, size);
   cout << endl << "List of scores in ascending order:" << endl;
-  for (int i = 0; i < size; i++){
-    cout << *(scores + i) << " ";
-  }
+  printArr(scores, size);
   return 0;
 }

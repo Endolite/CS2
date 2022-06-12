@@ -23,7 +23,19 @@ class PersonData{
     bool mailingList;
   public:
     static unsigned int CURR;
-    // Constructor
+    // Constructors
+    PersonData(){
+      lastName = "";
+      firstName = "";
+      address = "";
+      city = "";
+      state = "";
+      zip = "";
+      phone = "";
+      customerNumber = CURR;
+      CURR++;
+      mailingList = false;
+    }
     PersonData(string lN, string fN, string a, string c, string s, string z, string ph, bool mL){
       lastName = lN;
       firstName = fN;
@@ -96,33 +108,41 @@ unsigned int PersonData::CURR = 1;
 int main(){
   ifstream inputFile("CutomerInfo.txt");
   string str;
-  //cout << (inputFile >> str);
   vector<string> data;
   while (inputFile >> str){
       data.push_back(str);
   }
+  inputFile.close();
   string form[5][8];
   int row = 0;
-  int j;
+  int col = 0;
   for (int i = 0; i < data.size(); i++){
-    if (j == 3){
-      while ((data[i] != "Rd") && (data[i] != "Hwy")){
-        form[row][j] += data[i];
-        i++;
+    if (col == 2){
+      while ((data[i - 1] != "Rd") && (data[i - 1] != "Hwy")){
+        form[row][col] += data[i] + " ";
+       i++;
       }
+      col++;
+      form[row][col] = data[i];
     }
-    else if (j == 7){
-      form[row][j] = data[i] + data[i + 1];
+    else if (col == 6){
+      form[row][col] = data[i] + data[i + 1];
       i++;
     }
-    else{
-      form[row][j] = data[i];
-      if (j == 8){
-        j = -1;
+    else {
+      form[row][col] = data[i];
+      if (col == 7){
+        col = -1;
         row++;
       }
     }
-    j++;
+    col++;
+  }
+  for (int i = 0; i < 5; i++){
+    for (int j = 0; j < 8; j++){
+      cout << setw(25) << form[i][j];
+    }
+    cout << endl;
   }
   bool mL[5];
   for (int i = 0; i < 5; i++){
@@ -133,13 +153,21 @@ int main(){
       mL[i] = false;
     }
   }
-  //TODO initialize null array and use setters for each element
-  vector<PersonData> people;
+  PersonData people[5];
   for (int i = 0; i < 5; i++){
-    people.push_back(PersonData(form[i][0], form[i][1], form[i][2], form[i][3], form[i][4], form[i][5], form[i][6], mL[i]));
+    people[i].setLastName(form[i][0]);
+    people[i].setFirstName(form[i][1]);
+    people[i].setAddress(form[i][2]);
+    people[i].setCity(form[i][3]);
+    people[i].setState(form[i][4]);
+    people[i].setZip(form[i][5]);
+    people[i].setPhone(form[i][6]);
+    people[i].setMailingList(mL[i]);
   }
-  for (PersonData p : people){
-    cout << p.getFirstName() << " " << p.getLastName() << "; " << p.getAddress() << " " << p.getCity() << " " << p.getState() << " " << p.getZip() << "; " << p.getPhone() << "; " << p.getMailingList() << endl;
+  for (int i = 0; i < 5; i++){
+    if (people[i].getMailingList()){
+      cout << setw(10) << people[i].getLastName() << setw(10) << people[i].getFirstName() << setw(25) << people[i].getAddress() << setw(4) << people[i].getState() << setw(7) << people[i].getZip() << setw(15) << people[i].getPhone() << setw(5) << people[i].getCustomerNumber() << endl;
+    }
   }
   return 0;
 }
