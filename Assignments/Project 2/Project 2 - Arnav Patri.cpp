@@ -101,7 +101,6 @@ class PersonData{
     void setMailingList(bool b){
       mailingList = b;
     }
-    // to_string
 };
 unsigned int PersonData::CURR = 1;
 
@@ -137,12 +136,6 @@ int main(){
       }
     }
     col++;
-  }
-  for (int i = 0; i < 5; i++){
-    for (int j = 0; j < 8; j++){
-      cout << setw(25) << form[i][j];
-    }
-    cout << endl;
   }
   bool mL[5];
   for (int i = 0; i < 5; i++){

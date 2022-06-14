@@ -36,7 +36,7 @@ int main(){
   cout << "Enter the size of your list: ";
   cin >> str;
   const int size = stoi(str);
-  int scores[size];
+  int *scores = new int[size];
   for (int i = 0; i < size; i++){
     cout << "Enter a score: ";
     cin >> *(scores + i);
@@ -48,5 +48,6 @@ int main(){
   sort(scores, size);
   cout << endl << "List of scores in ascending order:" << endl;
   printArr(scores, size);
+  delete [] scores;
   return 0;
 }
