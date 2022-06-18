@@ -29,7 +29,7 @@ class StudentClass {
       return mName[i];
     }
     friend istream &operator>>(istream &strm, StudentClass &obj);
-    friend ostream &operator<<(fstream &strm, StudentClass &obj);
+    friend ostream &operator<<(ostream &strm, StudentClass &obj);
     unsigned int CountLetters(char c){
       unsigned int count = 0;
       for (int i = 0; i < mName.length(); i++){
