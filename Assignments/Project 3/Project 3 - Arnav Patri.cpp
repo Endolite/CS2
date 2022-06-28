@@ -3,6 +3,7 @@
 AID IN COMPLETING THIS WORK, NOR HAVE I PRESENTED
 SOMEONE ELSE’S WORK AS MY OWN.*/
 #include <iostream>
+#include <fstream>
 #include <vector>
 using namespace std;
 
