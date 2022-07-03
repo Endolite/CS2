@@ -20,11 +20,18 @@ class ExceptionClass {
 		ExceptionClass(){
 			mMsg = "";
       time_t now = time(0);
-			mTime = ctime(&now);
+      const tm* lnow = localtime(&now);
+      char buffer[256];
+		  strftime(buffer, sizeof(buffer), "%H:%M:%S %m/%d/%Y", lnow);
+      mTime = buffer;
 		}
 		ExceptionClass(string aMsg){
 			mMsg = aMsg;
-			mTime = to_string(time(0));
+      time_t now = time(0);
+			const tm* lnow = localtime(&now);
+      char buffer[256];
+		  strftime(buffer, sizeof(buffer), "%H:%M:%S %m/%d/%Y", lnow);
+      mTime = buffer;
 		}
     void DisplayInfo(){
       cout << mMsg << endl;
