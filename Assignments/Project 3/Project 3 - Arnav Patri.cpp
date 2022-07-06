@@ -3,6 +3,7 @@
 AID IN COMPLETING THIS WORK, NOR HAVE I PRESENTED
 SOMEONE ELSE’S WORK AS MY OWN.*/
 #include <iostream>
+#include <iomanip>
 #include <fstream>
 #include <vector>
 #include <ctime>
@@ -34,7 +35,7 @@ class ExceptionClass {
       mTime = buffer;
 		}
     void DisplayInfo(){
-      cout << mMsg << endl;
+      cout << "error: " <<  mMsg << endl;
     }
     void LogInfo(){
       ofstream log("log.txt", ios::app);
@@ -62,25 +63,129 @@ double divide(T aNumerator, T aDenominator){
 template <typename T>
 T GetElement(vector<T> &aContainer, int aIndex){
   try {
-    if (aIndex >= aContainer.size()){
-      throw ExceptionClass("Out of range");
-    }
-    else {
-      return aContainer[aIndex];
-    }
+   return aContainer.at(aIndex);
   }
-  catch (ExceptionClass exception){
+  catch (out_of_range){
+    ExceptionClass exception = ExceptionClass("Out of range");
     exception.DisplayInfo();
     exception.LogInfo();
   }
 }
 
 int main(){
-  divide(1, 0);
-  vector<int> vec;
-  for (int i = 0; i < 3; i++){
-    vec.push_back(i);
+  char response;
+  bool valid = true;
+  bool cont = true;
+  cout << "divide (D) or GetElement (E)? ";
+  while (true){
+    cin >> response;
+    if (response == 'D'){
+      cout << "int (I) or double (D)? ";
+      while (true){
+        cin >> response;
+        if (response == 'I'){
+          int i1, i2;
+          while (true){
+            cout << "int 1: ";
+            cin >> i1;
+            cout << "int 2: ";
+            cin >> i2;
+            if (i2 != 0){
+              cout << "int 1 / int 2: " << setprecision(15) << divide(i1, i2) << endl << endl;
+            }
+            else {
+              divide(i1, i2);
+            }
+          }
+        }
+        else if (response == 'D'){
+          double d1, d2;
+          while (true){
+            cout << "double 1: ";
+            cin >> d1;
+            cout << "double 2: ";
+            cin >> d2;
+            if (d2 != 0){
+              cout << "double 1 / double 2: " << setprecision(15) << divide(d1, d2) << endl << endl;
+            }
+            else {
+              divide(d1, d2);
+            }
+          }
+        }
+        cout << "Invalid. Try again: ";
+      }
+      break;
+    }
+    else if (response == 'E'){
+      cout << "integers (I) or doubles (D)? ";
+      while (true){
+        cin >> response;
+        if (response == 'I'){
+          vector<int> vec;
+          string data;
+          string datum;
+          int i;
+          int j;
+          while (true){
+            j = 0;
+            vec.clear();
+            cout << "data (separated by spaces): ";
+            cin >> datum;
+            vec.push_back(stoi(datum));
+            getline(cin, data);
+            for (int k = 1; k <= data.length(); k++){
+              if ((data[k] == ' ') || (k == data.length())){
+                vec.push_back(stoi(data.substr(j, k)));
+                j = k + 1;
+              }
+            }
+            cout << " index: ";
+            cin >> i;
+            if ((i >= 0) && (i < vec.size())){
+              cout << "item at " << i << " is " << GetElement(vec, i) << endl << endl;
+            }
+            else {
+              GetElement(vec, i);
+              cout << endl;
+            }
+          }
+        }
+        else if (response == 'D'){
+          vector<double> vec;
+          string datum;
+          string data;
+          int i;
+          int j = 0;
+          while (true){
+            j = 0;
+            vec.clear();
+            cout << "data (separated by spaces): ";
+            cin >> datum;
+            vec.push_back(stod(datum));
+            getline(cin, data);
+            for (int k = 1; k <= data.length(); k++){
+              if ((data[k] == ' ') || (k == data.length())){
+                vec.push_back(stod(data.substr(j, k)));
+                j = k + 1;
+              }
+            }
+            cout << "index: ";
+            cin >> i;
+            if ((i >= 0) && (i < vec.size())){
+              cout << "item at " << i << " is " << GetElement(vec, i) << endl << endl;
+            }
+            else {
+              GetElement(vec, i);
+              cout << endl;
+            }
+          }
+        }
+        cout << "Invalid. Try again: ";
+      }
+      break;
+    }
+    cout << "Invalid. Try again:";
   }
-  GetElement(vec, 3);
   return 0;
 }

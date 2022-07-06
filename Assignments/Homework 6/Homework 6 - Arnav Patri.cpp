@@ -1,4 +1,10 @@
+// Arnav Patri
+/*I HAVE NEITHER GIVEN NOR RECEIVED UNAUTHORIZED
+AID IN COMPLETING THIS WORK, NOR HAVE I PRESENTED
+SOMEONE ELSE’S WORK AS MY OWN.*/
+
 #include <iostream>
+#include <fstream>
 #include <vector>
 
 using namespace std;
@@ -15,8 +21,32 @@ struct MyStruct
       mGender = aGender;
    }
 };
-void WriteToBinary(vector<MyStruct> &aVec);
-vector<MyStruct> ReadFromFile();
+void WriteToBinary(vector<MyStruct> &aVec){
+   ofstream fout("bin.dat");
+   for (MyStruct MS: aVec){
+      fout.write(reinterpret_cast<char*>(&MS.mAge), sizeof(int));
+      fout.write(reinterpret_cast<char*>(&MS.mGrade), sizeof(double));
+      fout.write(&MS.mGender, sizeof(char));
+   }
+   fout.close();
+}
+vector<MyStruct> ReadFromFile(){
+   ifstream fin("bin.dat");
+   vector<MyStruct> ret;
+   MyStruct read(0, 0.0, 'A');
+   string age;
+   string grade;
+   char c;
+   while (fin){
+      fin.read(reinterpret_cast<char*>(&read.mAge), sizeof(int));
+      fin.read(reinterpret_cast<char*>(&read.mGrade), sizeof(double));
+      fin.read(reinterpret_cast<char*>(&read.mGender), sizeof(char));
+      ret.push_back(read);
+   }
+   ret.pop_back();
+   fin.close();
+   return ret;
+}
 int main()
 {
    vector<MyStruct> lVecToWrite = { MyStruct(10, 90, 'M'),
