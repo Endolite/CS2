@@ -44,6 +44,7 @@ class MyStack{
         cout << pos->mValue << "      ";
         pos = pos->mNext;
       }
+      mHead = nullptr;
       cout << endl;
     }
     void Pop(){
@@ -124,7 +125,7 @@ int main(){
     cout << exception.mDescription << endl;
   }
   cout << stack.isEmpty() << endl;
-  stack.Push(1);
+  stack.Push(3);
   cout << stack.isEmpty() << endl;
   stack.Push(10);
   cout << stack.Top() << endl;
