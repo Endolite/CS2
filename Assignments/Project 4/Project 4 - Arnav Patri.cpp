@@ -41,25 +41,24 @@ class MyStack{
       delete ptr;
       pos = mHead;
       while (pos != nullptr){
-        cout << pos->mValue << "      ";
         pos = pos->mNext;
       }
       mHead = nullptr;
-      cout << endl;
     }
     void Pop(){
-      MyNode* prev = nullptr;
-      MyNode* ptr = nullptr;
-      MyNode* pos = mHead;
-      while (pos != nullptr){
-        prev = ptr;
-        ptr = pos;
-        pos = pos->mNext;
-      }
       if (mHead == nullptr){
         throw MyException("Empty Stack");
       }
+      else if (this->Top() == mHead->mValue){
+        this->~MyStack();
+      }
       else {
+        MyNode* prev = mHead;
+        MyNode* ptr = mHead->mNext;
+        while (ptr->mNext != nullptr){
+          prev = ptr;
+          ptr = ptr->mNext;
+        }
         delete ptr;
         prev->mNext = nullptr;
       }
@@ -125,9 +124,9 @@ int main(){
     cout << exception.mDescription << endl;
   }
   cout << stack.isEmpty() << endl;
-  stack.Push(3);
+  stack.Push(1);
   cout << stack.isEmpty() << endl;
-  stack.Push(10);
+  stack.Push(2);
   cout << stack.Top() << endl;
   try {
     stack.Push(0);
@@ -137,10 +136,19 @@ int main(){
   }
   stack.~MyStack();
   try {
-    stack.Push(0);
+    stack.Push(3);
   }
   catch (MyStack::MyException exception){
     cout << exception.mDescription << endl;
   }
   cout << stack.Top() << endl;
+  stack.Push(4);
+  stack.Pop();
+  stack.Pop();
+  try {
+    cout << stack.Top();
+  }
+  catch (MyStack::MyException exception){
+    cout << exception.mDescription << endl;
+  }
 }
