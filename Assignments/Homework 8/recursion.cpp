@@ -11,16 +11,16 @@ using namespace std;
 vector<unsigned long long int> nums = {0, 1};
 
 unsigned long long int Fib(int n){
-  if (n > nums.size() - 1){
-    for (int i = nums.size(); i <= n; i++){
-      nums.push_back(nums[i - 1] + nums[i - 2]);
-    }
+  try {
+    nums[n];
+  }
+  catch (out_of_range){
+    nums[n] = Fib(n - 1) + Fib(n - 2);
   }
   return nums[n];
 }
 
 int main(){ 
-  // Breaks after 93
-  cout << Fib(93);
+  cout << Fib(2);
   return 0;
 }
